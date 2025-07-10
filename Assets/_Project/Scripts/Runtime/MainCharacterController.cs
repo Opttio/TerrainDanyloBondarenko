@@ -23,6 +23,9 @@ namespace _Project.Scripts.Runtime
         [Header ("Particles")]
         [SerializeField] private ParticleSystem _landingParticles;
         [SerializeField] private ParticleSystem _sprintParticles;
+        [Header("Gun")]
+        [SerializeField] private Weapon _gun;
+        [SerializeField] private Weapon _weapon;
         
         private MyInputSystem _inputSystem;
         
@@ -44,18 +47,21 @@ namespace _Project.Scripts.Runtime
             _inputSystem.MainCharacter.Look.performed += OnLook;
             _inputSystem.MainCharacter.Sprint.performed += OnSprint;
             _inputSystem.MainCharacter.Sprint.canceled += OnSprint;
+            _inputSystem.MainCharacter.Shoot.performed += OnShoot;
             #endregion
             
             MoveCameraToCharacterAndLockCursor();
+            MoveGunToCamera();
         }
 
         private void FixedUpdate()
         {
-            // Debug.Log(_isStopBounce);
             var rawDirection = new Vector3(_moveInput.x, 0, _moveInput.y);
             var characterDirection = _characterCamera.transform.TransformDirection(rawDirection).normalized;
             var moveSpeed = _isSprint ? _sprintSpeed : _walkSpeed;
             var move = characterDirection * (moveSpeed * Time.fixedDeltaTime);
+            if (Physics.Raycast(_mainCharRb.position + Vector3.up * (_playerHeight * 0.4f), move.normalized, 0.6f))
+                move = Vector3.zero;
             _mainCharRb.linearVelocity = new Vector3(move.x, _mainCharRb.linearVelocity.y, move.z);
             
             if (_isGrounded() && _moveInput == Vector2.zero && _isStopBounce)
@@ -105,6 +111,11 @@ namespace _Project.Scripts.Runtime
         private void OnSprint(InputAction.CallbackContext sprintButton)
         {
             _isSprint = sprintButton.ReadValue<float>() > 0f;
+        }
+
+        private void OnShoot(InputAction.CallbackContext obj)
+        {
+            _gun.Shoot();
         }
 
         private bool _isGrounded()
@@ -174,6 +185,12 @@ namespace _Project.Scripts.Runtime
                 _characterCamera.transform.localRotation = Quaternion.identity;
             }
             Cursor.lockState = CursorLockMode.Locked;
+        }
+        private void MoveGunToCamera()
+        {
+            _gun.transform.SetParent(_characterCamera.transform);
+            _gun.transform.localPosition = new Vector3(0.6f, -0.6f, 1.1f);
+            _characterCamera.transform.localRotation = Quaternion.identity;
         }
     }
 }
