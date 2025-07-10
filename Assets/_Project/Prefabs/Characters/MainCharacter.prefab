@@ -4926,6 +4926,7 @@ Transform:
   m_Children:
   - {fileID: 2969400932632493845}
   - {fileID: 2948128527228950096}
+  - {fileID: 8134635121959790122}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7852133557990903938
@@ -4951,6 +4952,8 @@ MonoBehaviour:
   _sprintSpeed: 720
   _landingParticles: {fileID: 5635167369358023141}
   _sprintParticles: {fileID: 6837045245096266296}
+  _gun: {fileID: 3460737775016315868}
+  _weapon: {fileID: 3460737775016315868}
 --- !u!54 &6337140808880205163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5008,7 +5011,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.89, z: 0}
 --- !u!1 &6530980719505375763
 GameObject:
   m_ObjectHideFlags: 0
@@ -9843,3 +9846,76 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1001 &7131157884884526949
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7875909205971784298}
+    m_Modifications:
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7211259466672504817, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+      propertyPath: m_Name
+      value: HandWithGun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+--- !u!114 &3460737775016315868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5976827543554829497, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+  m_PrefabInstance: {fileID: 7131157884884526949}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6387f3255e1400aaad05eb277c528ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8134635121959790122 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1302369165164724559, guid: 30dac2bbe2fa5e54ab82c68cc3cdd9be, type: 3}
+  m_PrefabInstance: {fileID: 7131157884884526949}
+  m_PrefabAsset: {fileID: 0}
