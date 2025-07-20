@@ -569,7 +569,7 @@ Transform:
   m_GameObject: {fileID: 6017379202539185044}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.068, y: 0.072, z: 0.132}
+  m_LocalPosition: {x: -0.068, y: 0.072, z: 0.4107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -736,6 +736,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1302369165164724559}
   - component: {fileID: 5976827543554829497}
+  - component: {fileID: 6437863745284732664}
+  - component: {fileID: 9003083272020338443}
+  - component: {fileID: 1634717594789412684}
+  - component: {fileID: 2677176040266653296}
   m_Layer: 0
   m_Name: HandWithGun
   m_TagString: Untagged
@@ -772,9 +776,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6387f3255e1400aaad05eb277c528ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attachedTo: {fileID: 0}
+  _dropForce: 1
+  _collectibleRb: {fileID: 6437863745284732664}
+  _colliders:
+  - {fileID: 9003083272020338443}
+  - {fileID: 1634717594789412684}
+  - {fileID: 2677176040266653296}
   _bulletRigidbody: {fileID: 8597126298484662781, guid: 7911789026cd93948a92b7454db20c7f, type: 3}
   _shootPoint: {fileID: 5510479814767232276}
   _bulletSpeed: 100
+  _renderer: {fileID: 458470193356178867}
+--- !u!54 &6437863745284732664
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211259466672504817}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &9003083272020338443
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211259466672504817}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.19318482, y: 0.26695067, z: 0.3752947}
+  m_Center: {x: -0.04149334, y: 0.020746797, z: 0.1855675}
+--- !u!136 &1634717594789412684
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211259466672504817}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07368407
+  m_Height: 0.36510372
+  m_Direction: 2
+  m_Center: {x: -0.06759605, y: 0.16453475, z: 0.50319815}
+--- !u!65 &2677176040266653296
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7211259466672504817}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.06110522, y: 0.14628422, z: 0.12756962}
+  m_Center: {x: -0.06223996, y: 0.060333252, z: 0.4362152}
 --- !u!1 &7492731161159627426
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +1071,7 @@ Transform:
   m_GameObject: {fileID: 8694536324308830763}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: -0, w: 0}
-  m_LocalPosition: {x: 0.002, y: 0, z: 0}
+  m_LocalPosition: {x: 0.002, y: 0, z: 0.2787}
   m_LocalScale: {x: 0.40529966, y: -0.40529966, z: 0.40529963}
   m_ConstrainProportionsScale: 0
   m_Children:

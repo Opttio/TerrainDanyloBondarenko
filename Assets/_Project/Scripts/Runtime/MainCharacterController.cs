@@ -9,7 +9,7 @@ namespace _Project.Scripts.Runtime
         [Header("General")]
         [SerializeField] private Rigidbody _mainCharRb;
         [SerializeField] private float _playerHeight = 1.6f;
-        [SerializeField] private float _stopBounceForce = 20f;
+        [SerializeField] private WeaponOwner _weaponOwner;
         [Header("Jump")]
         [SerializeField] private float _groundCheckDistance = 1f;
         [SerializeField] private float _jumpPower = 10f;
@@ -23,9 +23,6 @@ namespace _Project.Scripts.Runtime
         [Header ("Particles")]
         [SerializeField] private ParticleSystem _landingParticles;
         [SerializeField] private ParticleSystem _sprintParticles;
-        [Header("Gun")]
-        [SerializeField] private Weapon _gun;
-        [SerializeField] private Weapon _weapon;
         
         private MyInputSystem _inputSystem;
         
@@ -48,6 +45,8 @@ namespace _Project.Scripts.Runtime
             _inputSystem.MainCharacter.Sprint.performed += OnSprint;
             _inputSystem.MainCharacter.Sprint.canceled += OnSprint;
             _inputSystem.MainCharacter.Shoot.performed += OnShoot;
+            _inputSystem.MainCharacter.Shoot.canceled += OffShoot;
+            _inputSystem.MainCharacter.Collect.performed += OnCollect;
             #endregion
             
             MoveCameraToCharacterAndLockCursor();
@@ -56,19 +55,7 @@ namespace _Project.Scripts.Runtime
 
         private void FixedUpdate()
         {
-            var rawDirection = new Vector3(_moveInput.x, 0, _moveInput.y);
-            var characterDirection = _characterCamera.transform.TransformDirection(rawDirection).normalized;
-            var moveSpeed = _isSprint ? _sprintSpeed : _walkSpeed;
-            var move = characterDirection * (moveSpeed * Time.fixedDeltaTime);
-            if (Physics.Raycast(_mainCharRb.position + Vector3.up * (_playerHeight * 0.4f), move.normalized, 0.6f))
-                move = Vector3.zero;
-            _mainCharRb.linearVelocity = new Vector3(move.x, _mainCharRb.linearVelocity.y, move.z);
-            
-            if (_isGrounded() && _moveInput == Vector2.zero && _isStopBounce)
-            {
-                _mainCharRb.AddForce(Vector3.down * _stopBounceForce, ForceMode.Acceleration);
-                _isStopBounce = true;
-            }
+            Move();
 
             PlayLandingParticles();
             _wasGrounded = _isGrounded();
@@ -81,13 +68,43 @@ namespace _Project.Scripts.Runtime
 
         private void OnDisable() => _inputSystem.Disable();
 
+        private void Move()
+        {
+            var rawDirection = new Vector3(_moveInput.x, 0, _moveInput.y);
+            var characterDirection = _characterCamera.transform.TransformDirection(rawDirection).normalized;
+            var moveSpeed = _isSprint ? _sprintSpeed : _walkSpeed;
+            var move = characterDirection * (moveSpeed * Time.fixedDeltaTime);
+            if (Physics.Raycast(_mainCharRb.position + Vector3.up * (_playerHeight * 0.4f), move.normalized, 0.6f))
+                move = Vector3.zero;
+            _mainCharRb.linearVelocity = new Vector3(move.x, _mainCharRb.linearVelocity.y, move.z);
+            
+            if (_isGrounded() && _moveInput == Vector2.zero && _isStopBounce)
+            {
+                _mainCharRb.linearVelocity = new Vector3(_mainCharRb.linearVelocity.x, Mathf.Min(_mainCharRb.linearVelocity.y, -0.5f), _mainCharRb.linearVelocity.z);
+                _isStopBounce = true;
+            }
+        }
+
+        private IEnumerator ShootAuto()
+        {
+            float fireRate = 0.2f;
+            while (true)
+            {
+                _weaponOwner.Shoot();
+                yield return new WaitForSeconds(fireRate);
+            }
+        }
+
+        #region EventMethods
+
         private void OnJump(InputAction.CallbackContext jumpButton)
         {
+            _isStopBounce = false;
             if (_isGrounded())
             {
                 _mainCharRb.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
-                _isStopBounce = false;
             }
+            StartCoroutine(SetStopBounceAfterDelay(0.7f));
         }
 
         private void OnWalk(InputAction.CallbackContext walkValue)
@@ -115,17 +132,25 @@ namespace _Project.Scripts.Runtime
 
         private void OnShoot(InputAction.CallbackContext obj)
         {
-            _gun.Shoot();
+            _weaponOwner.Shoot();
         }
+
+        private void OffShoot(InputAction.CallbackContext obj)
+        {
+            _weaponOwner.StopShooting();
+        }
+
+        private void OnCollect(InputAction.CallbackContext obj)
+        {
+            _weaponOwner.Collect();
+        }
+        #endregion
 
         private bool _isGrounded()
         {
             if (Physics.Raycast(_mainCharRb.transform.position, Vector3.down, _groundCheckDistance))
-            {
-                StartCoroutine(SetStopBounceAfterDelay(1f));
                 return true;
-            }
-            else 
+            else
                 return false;
         }
 
@@ -188,9 +213,7 @@ namespace _Project.Scripts.Runtime
         }
         private void MoveGunToCamera()
         {
-            _gun.transform.SetParent(_characterCamera.transform);
-            _gun.transform.localPosition = new Vector3(0.6f, -0.6f, 1.1f);
-            _characterCamera.transform.localRotation = Quaternion.identity;
+            _weaponOwner.Holder.transform.SetParent(_characterCamera.transform);
         }
     }
 }

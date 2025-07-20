@@ -21,6 +21,8 @@ namespace _Project.Scripts.Runtime
 
         protected override void OnCollisionEnterCreate(Collision collision)
         {
+            if (collision.gameObject.CompareTag("Bullet"))
+                return;
             var contactPoint = collision.GetContact(0);
             var rotation = Quaternion.LookRotation(contactPoint.normal);
             var instance = Instantiate(_bulletTracePrefab, contactPoint.point, rotation);

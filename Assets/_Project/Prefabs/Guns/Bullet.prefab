@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 8597126298484662781}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   _executeOnStart: 1
   _executeOnCollision: 1
   _executeOnCollisionCreate: 1
-  _bulletDelay: 3
+  _bulletDelay: 2
   _bulletCollisionDelay: 0.05
   _bulletTracePrefab: {fileID: 8505911168963744109, guid: 21f8e92dca18e124480b2b63c1785e89, type: 3}
 --- !u!54 &8597126298484662781
