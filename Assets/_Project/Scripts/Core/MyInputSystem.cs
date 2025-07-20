@@ -135,6 +135,15 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Collect"",
+                    ""type"": ""Button"",
+                    ""id"": ""32a15342-7fb1-44f0-943a-98ce5ec861c0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -236,6 +245,17 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28f349ac-a2ad-43f6-92ee-2e9508b38055"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Collect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -249,6 +269,7 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
         m_MainCharacter_Jump = m_MainCharacter.FindAction("Jump", throwIfNotFound: true);
         m_MainCharacter_Sprint = m_MainCharacter.FindAction("Sprint", throwIfNotFound: true);
         m_MainCharacter_Shoot = m_MainCharacter.FindAction("Shoot", throwIfNotFound: true);
+        m_MainCharacter_Collect = m_MainCharacter.FindAction("Collect", throwIfNotFound: true);
     }
 
     ~@MyInputSystem()
@@ -334,6 +355,7 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_MainCharacter_Jump;
     private readonly InputAction m_MainCharacter_Sprint;
     private readonly InputAction m_MainCharacter_Shoot;
+    private readonly InputAction m_MainCharacter_Collect;
     /// <summary>
     /// Provides access to input actions defined in input action map "MainCharacter".
     /// </summary>
@@ -365,6 +387,10 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "MainCharacter/Shoot".
         /// </summary>
         public InputAction @Shoot => m_Wrapper.m_MainCharacter_Shoot;
+        /// <summary>
+        /// Provides access to the underlying input action "MainCharacter/Collect".
+        /// </summary>
+        public InputAction @Collect => m_Wrapper.m_MainCharacter_Collect;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -406,6 +432,9 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
+            @Collect.started += instance.OnCollect;
+            @Collect.performed += instance.OnCollect;
+            @Collect.canceled += instance.OnCollect;
         }
 
         /// <summary>
@@ -432,6 +461,9 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
+            @Collect.started -= instance.OnCollect;
+            @Collect.performed -= instance.OnCollect;
+            @Collect.canceled -= instance.OnCollect;
         }
 
         /// <summary>
@@ -507,5 +539,12 @@ public partial class @MyInputSystem: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnShoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Collect" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCollect(InputAction.CallbackContext context);
     }
 }
