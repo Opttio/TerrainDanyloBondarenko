@@ -55,5 +55,15 @@ namespace _Project.Scripts.Runtime.Weapons
                 material.DisableKeyword("_EMISSION");
             }
         }
+        
+        protected virtual void OnDisable()
+        {
+            StopShooting();
+        }
+
+        protected virtual void OnDestroy()
+        {
+            StopShooting();
+        }
     }
 }
