@@ -30,6 +30,11 @@ namespace _Project.Scripts.Runtime.Enemies
 
         private void Update()
         {
+            EnemyWalking();
+        }
+
+        private void EnemyWalking()
+        {
             if (!_agent.pathPending && _agent.remainingDistance < _agent.stoppingDistance)
             {
                 _currentTargetPoint = _moveType switch
